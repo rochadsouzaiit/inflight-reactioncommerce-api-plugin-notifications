@@ -1,7 +1,8 @@
 import pkg from "../package.json";
 import mutations from "./mutations/index.js";
+import schemas from "./schemas/index.js";
 import startup from "./startup.js";
-import { Notification } from "./simpleSchemas.js";
+import { Notification, NotificationOptions } from "./simpleSchemas.js";
 
 /**
  * @summary Import and call this function to add this plugin to your API.
@@ -24,6 +25,18 @@ export default async function register(app) {
     mutations,
     simpleSchemas: {
       Notification
+    },
+    graphQL: {
+      schemas
+    },
+    shopSettingsConfig: {
+      notificationOptions: {
+        defaultValue: null,
+        permissionsThatCanEdit: ["reaction:legacy:inventory/update:settings"],
+        simpleSchema: {
+          type: NotificationOptions
+        }
+      }
     }
   });
 }

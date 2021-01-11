@@ -52,3 +52,23 @@ export const Notification = new SimpleSchema({
   status: String,
   timeSent: Date
 });
+
+export const NotificationOptions = new SimpleSchema({
+  "notificationOptions": {
+    type: Array,
+    optional: true
+  },
+  "notificationOptions.$": {
+    type: Object,
+    optional: false,
+    blackbox: true
+  }
+});
+
+export const NOTIFICATION_HOOK = {
+  AFTER_ORDER_CREATED: "AFTER_ORDER_CREATED"
+};
+
+export const NOTIFICATION_CHANNEL = {
+  SMS: "SMS"
+};

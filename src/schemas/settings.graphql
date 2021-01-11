@@ -1,0 +1,48 @@
+"When notification can be sent"
+enum NotificationHook {
+  AFTER_ORDER_CREATED
+}
+
+"To where notification can be sent"
+enum NotificationChannel {
+  SMS
+}
+
+"Notifications settings Input"
+input NotificationSettingInput {
+  "Notification hook: when notitifcation is called"
+  hook: NotificationHook
+
+  "Notification Channel"
+  channel: NotificationChannel
+
+  "Channel identifier (Number, email, ...)"
+  identifier: String
+}
+
+"Notifications settings"
+type NotificationSetting {
+  "Notification hook: when notitifcation is called"
+  hook: NotificationHook
+
+  "Notification Channel"
+  channel: NotificationChannel
+
+  "Channel identifier (Number, email, ...)"
+  identifier: String
+}
+
+extend type ShopSettings {
+  """
+  All shop notification options
+  """
+  notificationOptions: [NotificationSetting!]
+}
+
+extend input ShopSettingsUpdates {
+  """
+  If there is no known inventory for a product configuration, this setting determines
+  whether that product configuration can be sold and should appear to be available.
+  """
+  notificationOptions: [NotificationSettingInput!]
+}
