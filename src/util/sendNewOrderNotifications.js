@@ -37,8 +37,7 @@ export default async function sendNewOrderNotifications(context, order) {
     let identifier;
     let isNotificationLogged = false;
     if (!!shopSettings && !!shopSettings.notificationOptions) {
-      const notificationSettings =
-        shopSettings.notificationOptions.find((no) => no.hook === NOTIFICATION_HOOK.AFTER_ORDER_CREATED);
+      const notificationSettings = shopSettings.notificationOptions.find((no) => no.hook === NOTIFICATION_HOOK.AFTER_ORDER_CREATED && !!no.state);
 
       if (notificationSettings) {
         // eslint-disable-next-line prefer-destructuring
