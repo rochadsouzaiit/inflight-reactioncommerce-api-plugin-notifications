@@ -111,18 +111,26 @@ function createNewOrderMessage(order) {
   const NEW_LINE = "%0a";
   const { email, referenceId, shipping, payments } = order;
 
-  let message = `Proximcity  - Nova encomenda (${referenceId})${NEW_LINE}`;
+  let message = `Proximcity - Nova encomenda${NEW_LINE}Ref: ${referenceId}${NEW_LINE}${NEW_LINE}`;
 
   if (!!shipping && !!shipping.length) {
     const { address, items } = shipping[0];
     // From
-    if (address.fullName) { message = `${message} De: ${address.fullName}${NEW_LINE}`; }
+    if (address.fullName) {
+      message = `${message}${address.fullName}${NEW_LINE}`;
+    }
 
     // Contacts
-    if (address.phone || email) { message = `${message} Contactos: ${address.phone} - ${email}${NEW_LINE}`; }
+    if (address.phone || email) {
+      message = `${message}${address.phone}${NEW_LINE}`;
+      message = `${message}${email}${NEW_LINE}`;
+    }
+
+    message = `${message}${NEW_LINE}`;
 
     // Items
-    message = `${message}${items.map((it) => `(${it.quantity}) ${it.title}${NEW_LINE}`)}`;
+    message = `${message}${items.map((it) => `(${it.quantity}x) ${it.title}${NEW_LINE}`)}`;
+    message = `${message}${NEW_LINE}`;
   }
 
   if (!!payments && !!payments.length) {
