@@ -39,6 +39,10 @@ type NotificationSetting {
 }
 
 extend type ShopSettings {
+    """
+  [Not editable by API] Whether notifications are allowed for the shop (subscription plan)
+  """
+  notificationsAllowed: Boolean
   """
   All shop notification options
   """
@@ -46,9 +50,9 @@ extend type ShopSettings {
 }
 
 extend input ShopSettingsUpdates {
+  
   """
-  If there is no known inventory for a product configuration, this setting determines
-  whether that product configuration can be sold and should appear to be available.
+  Notifications Settings
   """
   notificationOptions: [NotificationSettingInput!]
 }

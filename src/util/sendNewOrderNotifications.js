@@ -27,6 +27,7 @@ export default async function sendNewOrderNotifications(context, order) {
       shopId: order.shopId
     }, {
       projection: {
+        notificationsAllowed: 1,
         notificationOptions: 1
       }
     });
@@ -36,7 +37,7 @@ export default async function sendNewOrderNotifications(context, order) {
     let channel;
     let identifier;
     let isNotificationLogged = false;
-    if (!!shopSettings && !!shopSettings.notificationOptions) {
+    if (!!shopSettings && !!shopSettings.notificationOptions && !!shopSettings.notificationsAllowed) {
       const notificationSettings = shopSettings.notificationOptions.find((no) => no.hook === NOTIFICATION_HOOK.AFTER_ORDER_CREATED && !!no.state);
 
       if (notificationSettings) {

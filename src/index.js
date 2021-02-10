@@ -30,6 +30,13 @@ export default async function register(app) {
       schemas
     },
     shopSettingsConfig: {
+      notificationsAllowed: {
+        defaultValue: null,
+        permissionsThatCanEdit: ["reaction:legacy:inventory/update:settings"],
+        simpleSchema: {
+          type: Boolean
+        }
+      },
       notificationOptions: {
         defaultValue: null,
         permissionsThatCanEdit: ["reaction:legacy:inventory/update:settings"],
