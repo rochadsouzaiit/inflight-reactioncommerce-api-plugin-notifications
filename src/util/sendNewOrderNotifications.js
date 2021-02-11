@@ -121,16 +121,26 @@ function createNewOrderMessage(order) {
       message = `${message}${address.fullName}${NEW_LINE}`;
     }
 
-    // Contacts
-    if (address.phone || email) {
-      message = `${message}${address.phone}${NEW_LINE}`;
-      message = `${message}${email}${NEW_LINE}`;
+    // TAX NUMBER
+    const taxNumberMetafield = address.metafields.find((meta) => meta.key === "TAXNUMBER" && meta.namespace === "BILLING");
+    if (!!taxNumberMetafield && !!taxNumberMetafield.value) {
+      message = `${message}${taxNumberMetafield.value}${NEW_LINE}`;
     }
 
     message = `${message}${NEW_LINE}`;
 
+    // Contacts
+    if (address.phone || email) {
+      message = `${message}${email}${NEW_LINE}`;
+      message = `${message}${address.phone}${NEW_LINE}`;
+    }
+
+
+    message = `${message}${NEW_LINE}`;
+
     // Items
-    message = `${message}${items.map((it) => `(${it.quantity}x) ${it.title}${NEW_LINE}`)}`;
+    message = `${message}${items.map((it) =>
+      `(${it.quantity}x) ${it.title}${NEW_LINE}`)}`;
     message = `${message}${NEW_LINE}`;
   }
 
